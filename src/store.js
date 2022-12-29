@@ -1,36 +1,27 @@
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
 
-export const actionDeposit = (action) => {
+export const actionDeposit = (transaction) => {
   return (dispatch) => {
     dispatch({
-      type: "Deposit",
-      amount: action.payload,
+      type: "Transaction",
+      payload: transaction,
     });
   };
 };
 
-export const actionWithdraw = (action) => {
-  return (dispatch) => {
-    dispatch({
-      type: "Withdraw",
-      transactionType: action.transactionType,
-      amount: action.amount,
-    });
-  };
-};
-
-export const reducer = (state = {}, action) => {
+const reducerTransaction = (state = [{ balance: 0 }], action) => {
   switch (action.type) {
-    case "Deposit":
-      return { ...state, action };
-
-    case "Withdraw":
-      break;
+    case "Transaction":
+      state[0].balance += action.payload.amount;
+      console.log(action.payload);
+      return [...state, action.payload];
 
     default:
-      break;
+      return state;
   }
 };
+
+export const reducer = combineReducers({ reducer: reducerTransaction });
 
 export const store = createStore(reducer, {}, applyMiddleware(thunk));

@@ -1,10 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const AccountInfo = () => {
+  const balance = useSelector((state) => state.reducer);
+
   return (
     <div>
       <h1>Account Info</h1>
-      <h2>Balance: 0$</h2>
+      <h2>Balance: {balance[0].balance}$</h2>
     </div>
   );
 };

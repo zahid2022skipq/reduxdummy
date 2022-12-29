@@ -9,21 +9,23 @@ const DepositContainer = () => {
   const dispatch = useDispatch();
 
   const makeTransaction = () => {
-    dispatch(actionDeposit({ type, amount }));
+    dispatch(
+      actionDeposit({ transactionType: type, amount: parseInt(amount) })
+    );
   };
 
   return (
     <div style={{ flexDirection: "row", padding: "20px" }}>
       <div style={{ marginBottom: "10px" }}>
         <input
-          onChange={(e) => e.target.value}
+          onChange={(e) => setType(e.target.value)}
           value={type}
           placeholder="enter type"
         />
       </div>
       <div style={{ marginBottom: "10px" }}>
         <input
-          onChange={(e) => e.target.value}
+          onChange={(e) => setAmount(e.target.value)}
           value={amount}
           placeholder="enter amount"
         />
