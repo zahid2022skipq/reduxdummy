@@ -11,7 +11,11 @@ function History() {
   // ];
 
   return (
-    <div>
+    <div
+      style={{
+        flexDirection: "row-reverse",
+      }}
+    >
       {data.map(
         ({ transactionType, amount }, index) =>
           index > 0 && (
