@@ -10,11 +10,17 @@ export const actionDeposit = (transaction) => {
   };
 };
 
-const reducerTransaction = (state = [{ balance: 0 }], action) => {
+const reducerTransaction = (
+  state = [{ balance: 0, income: 0, expense: 0 }],
+  action
+) => {
   switch (action.type) {
     case "Transaction":
       state[0].balance += action.payload.amount;
-      console.log(action.payload);
+      state[0].income +=
+        action.payload.amount > 0 ? Math.abs(action.payload.amount) : 0;
+      state[0].expense +=
+        action.payload.amount < 0 ? Math.abs(action.payload.amount) : 0;
       return [...state, action.payload];
 
     default:
